@@ -238,8 +238,12 @@ To install the python gpufit package go to "Release" folder and here you find Gp
 Compiling Gpufit on Linux
 -------------------------
 
-A successful build has been verified on Ubuntu 18.04 LTS with gcc 5.5 and CUDA 9.1
-following the `instructions <https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=debnetwork>`_
+A successful build has been verified on 
+
+- Ubuntu 18.04 LTS with gcc  5.5   and CUDA  9.1,
+- Ubuntu 24.04 LTS with gcc 12.3.0 and CUDA 12.0.140 (See `#138 <https://github.com/gpufit/Gpufit/issues/138>`_ for details)
+
+Install CUDA following the `instructions <https://developer.nvidia.com/cuda-downloads>`_
 on the NVidia website. CMake needs to be at least version 3.11. To perform the tests, a development version of Boost should be installed (e.g. *libboost-all-dev*).
 
 The following commands were executed.
@@ -253,7 +257,7 @@ The following commands were executed.
 	make
 
 In case, during make there is an error "unsupported GNU version! gcc versions later than X are not supported", it means that CUDA needs an older version of gcc. Provided that such
-a version is installed on the system you can choose it with the -DCMAKE_C_COMPILER option to cmake. For example, for CUDA 9 one should add -DCMAKE_C_COMPILER=gcc-5 in the call to cmake.
+a version is installed on the system you can choose it with the ``-DCMAKE_C_COMPILER`` option to cmake. For example, for CUDA 9 one should add ``-DCMAKE_C_COMPILER=gcc-5`` in the call to cmake.
 
 The tests can be run for example by "make test". Run the performance comparison with
 
