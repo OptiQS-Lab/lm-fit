@@ -73,6 +73,7 @@ class ModelID:
     SPLINE_3D_PHASE_MULTICHANNEL = 12
     SPLINE_4D = 13
     SPLINE_5D = 14
+    SINE = 15
 
 class EstimatorID:
     LSE = 0
