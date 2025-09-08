@@ -59,8 +59,19 @@ __device__ void calculate_sine(
     char * user_info,
     std::size_t const user_info_size)
 {
-    // Points
-    REAL x = point_index;
+    // indices
+
+    REAL * user_info_float = (REAL*) user_info;
+    REAL x = 0;
+    if (!user_info_float)
+    {
+        x = point_index;
+    }
+    else if (user_info_size / sizeof(REAL) == n_points)
+    {
+        x = user_info_float[point_index];
+    }
+
     // parameters
     REAL const * p = parameters;
     // value 
