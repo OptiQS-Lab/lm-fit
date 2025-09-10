@@ -86,21 +86,6 @@ else()
   message( WARNING "Boost NOT found - skipping tests! (set BOOST_ROOT manually)" )
 endif()
 
-# MATLAB
-
-find_package( Matlab COMPONENTS MX_LIBRARY )
-if( Matlab_FOUND )
-  find_program( Matlab_EXECUTABLE matlab
-    PATHS "${Matlab_ROOT_DIR}/bin" PATH_SUFFIXES win32 win64 NO_DEFAULT_PATH )
-  function( add_matlab_launcher target )
-    set( paths "${CMAKE_BINARY_DIR}/$(Configuration)" ${ARGN} )
-    list( GET paths -1 working_directory )
-    string( REPLACE ";" "','" paths "${paths}" )
-    set( arguments "-r addpath('${paths}');addpath(genpath(pwd))" )
-    add_launcher( ${target} "${Matlab_EXECUTABLE}" "${arguments}" "${working_directory}" )
-  endfunction()
-endif()
-
 # Python
 
 find_package( PythonInterp )
@@ -112,24 +97,6 @@ if( PYTHONINTERP_FOUND )
     set( arguments "-i -c \"import sys\nsys.path.append('${paths}')\"" )
     add_launcher( ${target} "${PYTHON_EXECUTABLE}" "${arguments}" "${working_directory}" )
   endfunction()
-endif()
-
-# Documentation (Latex->PDF)
-
-find_package( LATEX COMPONENTS PDFLATEX )
-if( LATEX_PDFLATEX_FOUND )
-  set( latex_manual_directory "${CMAKE_SOURCE_DIR}/docs/_build/latex" )
-  # run latex two times to get the references right
-  add_custom_target( DOCUMENTATION_PDFLATEX
-    COMMAND ${CMAKE_COMMAND} -E
-      chdir ${latex_manual_directory} "${PDFLATEX_COMPILER}" -interaction=nonstopmode Gpufit.tex
-    COMMAND ${CMAKE_COMMAND} -E
-      chdir ${latex_manual_directory} "${PDFLATEX_COMPILER}" -interaction=nonstopmode Gpufit.tex
-    COMMENT "Converting documentation to PDF"
-  )
-  set_property( TARGET DOCUMENTATION_PDFLATEX PROPERTY FOLDER CMakePredefinedTargets )
-else()
-  message( WARNING "PDFLatex NOT found - cannot convert documentation to PDF!" )
 endif()
 
 # Cpufit
@@ -159,19 +126,6 @@ else()
 	file( TO_CMAKE_PATH "$ENV{HOME}" home )
 endif()
 
-if( Matlab_FOUND )
-  set( Matlab_WORKING_DIRECTORY "${home}" CACHE PATH "MATLAB working directory" )
-  if( Matlab_WORKING_DIRECTORY )
-    add_custom_target( RUN_MATLAB )
-    set_property( TARGET RUN_MATLAB PROPERTY FOLDER CMakePredefinedTargets )
-    add_dependencies( RUN_MATLAB CpufitMex GpufitMex )
-    add_matlab_launcher( RUN_MATLAB
-      "${CMAKE_SOURCE_DIR}/Cpufit/matlab"
-      "${CMAKE_SOURCE_DIR}/Gpufit/matlab"
-      "${Matlab_WORKING_DIRECTORY}"
-    )
-  endif()
-endif()
 
 if( PYTHONINTERP_FOUND )
   set( Python_WORKING_DIRECTORY "${home}" CACHE PATH "Python working directory" )
