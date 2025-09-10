@@ -12,13 +12,14 @@ jobs:
       matrix:
         # `include` will only run specific combinations (not permutations of these)
         include:
-          - os: windows-2019
-            cuda: "11.4.0"
-            visual_studio: "Visual Studio 16 2019"
-            python: "3.9"
+          # https://devguide.python.org/versions/
+          - os: windows-2025
+            cuda: "12.9.0"
+            visual_studio: "Visual Studio 17 2022"
+            python: "3.12"
           - os: ubuntu-20.04
-            cuda: "11.4.0"
-            python: "3.9"
+            cuda: "12.9.0"
+            python: "3.12"
 
     env:
       build_dir: "build"
@@ -46,7 +47,7 @@ jobs:
           pip install wheel
 
       - name: Install CUDA (Windows)
-        uses: Jimver/cuda-toolkit@v0.2.8
+        uses: Jimver/cuda-toolkit@v0.2.27
         if: runner.os == 'Windows'
         with:
           sub-packages: '["nvcc", "visual_studio_integration", "cublas", "curand", "nvrtc", "cudart"]'
@@ -55,7 +56,7 @@ jobs:
           use-github-cache: false
 
       - name: Install CUDA (Linux)
-        uses: Jimver/cuda-toolkit@v0.2.8
+        uses: Jimver/cuda-toolkit@v0.2.27
         if: runner.os == 'Linux'
         with:
           sub-packages: '["nvcc", "nvrtc", "cudart"]'
@@ -78,12 +79,12 @@ jobs:
       - name: Configure CMake
         id: configure
         shell: bash
-        run: |
+        run: | # set gcc version here ??
           if [ "${{ runner.os }}" -eq "Windows" ]
           then
             cmake . -B "${{ env.build_dir }}" -G "${{ matrix.visual_studio }}" -A x64
           else
-            cmake . -B "${{ env.build_dir }}" -DCMAKE_BUILD_TYPE=RELEASE
+            cmake . -B "${{ env.build_dir }}" -DCMAKE_BUILD_TYPE=RELEASE  
           fi
 
       - name: Configure Error Processing
