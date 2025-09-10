@@ -243,8 +243,6 @@ if( BUILD_TESTING )
 endif()
 
 # Bindings
-
-add_subdirectory( matlab )
 add_subdirectory( python )
-add_subdirectory( java )
+
 

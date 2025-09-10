@@ -112,7 +112,7 @@ void cuda_interface_example()
          - the mean chi square value
          - and the mean number of iterations needed.
 
-        True parameters and noise and number of fits is the same as for the Matlab/Python 2D Gaussian examples.
+        True parameters and noise and number of fits is the same as for the Python 2D Gaussian examples.
     */
 
 

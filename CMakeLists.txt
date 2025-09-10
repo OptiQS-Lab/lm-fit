@@ -115,8 +115,6 @@ add_subdirectory( examples/c++/gpu_vs_cpu_profiling )
 #
 # Uses the following variables:
 #
-#   Matlab_WORKING_DIRECTORY (Default: user home directory)
-#   -- Working directory for MATLAB applications using Cpufit and Gpufit.
 #   Python_WORKING_DIRECTORY (Default: user home directory)
 #   -- Working directory for Python applications using Gpufit.
 

@@ -1,12 +1,6 @@
-# IntelliJ
-**/.idea
-
 # Python
 __pycache__
 
-# Gradle/IntelliJ
-Gpufit/java/gpufit/.gradle
-Gpufit/java/gpufit/out
 
 # build folders
 **/build/*
