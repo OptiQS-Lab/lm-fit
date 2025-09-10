@@ -47,7 +47,7 @@ jobs:
           pip install wheel
 
       - name: Install CUDA (Windows)
-        uses: Jimver/cuda-toolkit@v0.2.27
+        uses: Jimver/cuda-toolkit@v0.2.24
         if: runner.os == 'Windows'
         with:
           sub-packages: '["nvcc", "visual_studio_integration", "cublas", "curand", "nvrtc", "cudart"]'
@@ -56,7 +56,7 @@ jobs:
           use-github-cache: false
 
       - name: Install CUDA (Linux)
-        uses: Jimver/cuda-toolkit@v0.2.27
+        uses: Jimver/cuda-toolkit@v0.2.24
         if: runner.os == 'Linux'
         with:
           sub-packages: '["nvcc", "nvrtc", "cudart"]'
