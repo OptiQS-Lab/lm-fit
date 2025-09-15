@@ -31,10 +31,8 @@ Instructions for using the binary distribution may be found in the documentation
   SDK is intended to be used when calling Gpufit from an external application
   written in e.g. C code.
 - Gpufit Performance test: A simple console application comparing the execution speed of curve fitting on the GPU and CPU.  This program also serves as a test to ensure the correct functioning of Gpufit.
-- Matlab 32 bit and 64 bit bindings, with Matlab examples.
-- Python version 2.x and version 3.x bindings (compiled as wheel files) and
+- Python version >3.12 bindings (compiled as wheel files) and
   Python examples.
-- Java binding, with Java examples.
 
 
 ## Examples
@@ -43,10 +41,7 @@ There are various examples that demonstrate the capabilities and usage of Gpufit
 
 - /examples/c++ - C++ examples for Gpufit
 - /examples/c++/gpufit_cpufit - C++ examples that use Gpufit and Cpufit
-- /examples/matlab - Matlab examples for Gpufit including spline fit examples (also requires [Gpuspline](https://github.com/gpufit/Gpuspline))
 - /examples/python - Python examples for Gpufit including spline fit examples (also requires [Gpuspline](https://github.com/gpufit/Gpuspline))
-- /Cpufit/matlab/examples - Matlab examples that only uses Cpufit
-- /Gpufit/java/gpufit/src/test/java/com/github/gpufit/examples - Java examples for Gpufit
 
 ## Authors
 

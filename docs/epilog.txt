@@ -9,7 +9,6 @@
 
 .. _CMake: http://www.cmake.org
 .. _Boost: http://www.boost.org
-.. _MATLAB: http://www.mathworks.com/products/matlab.html
 .. _Python: http://www.python.org
 
 .. _`Gpufit on Github`: https://github.com/gpufit/Gpufit
@@ -45,17 +44,8 @@
 .. _Gauss_Fit_2D_Example.cpp: https://github.com/gpufit/Gpufit/blob/master/Gpufit/examples/Gauss_Fit_2D_Example.cpp
 .. _Linear_Regression_Example.cpp: https://github.com/gpufit/Gpufit/blob/master/Gpufit/examples/Linear_Regression_Example.cpp
 
-.. _GpufitMex.cpp: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/GpufitMex.cpp
-.. _gpufit.m: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/gpufit.m
-
-.. _`Matlab simple example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/examples/simple.m
-.. _`Matlab Gauss2D example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/examples/gauss2d.m
-.. _`Matlab Gauss2D constrained fit example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/examples/gauss2d_constrained.m
-.. _`Matlab Gauss2D plot example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/matlab/examples/gauss2d_plot.m
-
 .. _`Python simple example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/python/examples/simple.py
 .. _`Python Gauss2D example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/python/examples/gauss2d.py
 .. _`Python Gauss2D constrained fit example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/python/examples/gauss2d_constrained.py
 .. _`Python Gauss2D plot example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/python/examples/gauss2d_plot.py
 
-.. _`Java Gauss2D example`: https://github.com/gpufit/Gpufit/blob/master/Gpufit/java/gpufit/src/test/java/com/github/gpufit/examples/Gauss2DExample.java

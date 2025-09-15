@@ -7,7 +7,7 @@ Installation and Testing
 The Gpufit library can be used in several ways. When using a pre-compiled
 binary version of Gpufit, the Gpufit functions may be accessed directly via 
 a dynamic linked library (e.g. Gpufit.dll) or via the external bindings to 
-Gpufit (e.g. the Matlab or Python bindings). For more information on the
+Gpufit (e.g. the Python bindings). For more information on the
 Gpufit interface, see :ref:`api-description`, or for details of the external
 bindings see :ref:`external-bindings`.
 
@@ -31,10 +31,8 @@ updated Nvidia graphics driver. The binary package contains:
   written in e.g. C code.
 - The performance test application, which serves to test that Gpufit is 
   correctly installed, and to check the performance of the CPU and GPU hardware.
-- Matlab 32 bit and 64 bit bindings, with Matlab examples.
-- Python version 2.x and version 3.x bindings (compiled as wheel files) and
+- Python version >3.12 bindings (compiled as wheel files) and
   Python examples.
-- Java 8 32 bit and 64 bit bindings, with Java examples.
 - This manual in PDF format. 
 
 To re-build the binary distribution, see the instructions located in 
@@ -70,10 +68,8 @@ The following tools are required in order to build Gpufit from source.
 *Optional*
 
 * Boost_ 1.58 or later (required if you want to build the tests)
-* MATLAB_ if building the MATLAB bindings (minimum version Matlab 2012a)
 * Python_ if building the Python bindings (Python version 2.x or 3.x).  Note that the "wheel" package is required 
   when building the Python binding.
-* Java if building the Java bindings (minimum Java JDK version 8)
 * PDF Latex installation (like Miktex) if converting the documentation from Latex to PDF.  
 
 Source code availability
@@ -123,11 +119,6 @@ Next, click the "Configure" button, and select the desired compiler from the dro
 down list (e.g. Visual Studio 12 2013).  Under *Optional platform for Generator*, 
 select the desired architecture (e.g. *x64* to compile 64-bit binaries).
 
-Once configuration is complete, CMake will have automatically found the Matlab 
-installation, and the installation directories will be listed in the *NAME* and 
-*VALUE* columns.  If the Matlab installation was not found, the entries in the 
-*VALUE* column can be manually edited.
-
 Next, click on *Generate* to generate the Visual Studio solution files, which
 will be used to build the Gpufit package.
 
@@ -160,17 +151,13 @@ Common issues encountered during CMake configuration
 ----------------------------------------------------
 
 It's strongly recommended to use the latest available CMake version.
-Especially the find CUDA, Matlab, Python capabilities of CMake get updated often.
+Especially the find CUDA, Python capabilities of CMake get updated often.
 
 **Boost NOT found - skipping tests!**
 
 If you want to build the tests and Boost is not found automatically, set the 
 CMake variable BOOST_ROOT to the corresponding directory, and configure again.
 
-**JAVA JNI NOT found - skipping Gpufit Java binding!**
-
-If you want to build the Java binding and CMake cannot find Java, you can set the CMake
-variable JAVA_HOME to specify a Java installation explicitely.
 
 **Specify CUDA_ARCHITECTURES set**
 
@@ -194,30 +181,18 @@ CUDA version.
 When using Microsoft Visual Studio 2015, the minimum required CUDA Toolkit 
 version is 8.0.
 
-**No suitable Matlab and/or MX_Library version found - skipping Gpufit Matlab binding!**
-
-CMake might not be able to locate Matlab, in which case this message will be shown.
-Try to set the Matlab_ROOT_DIR variable manually (for example "C:/Program Files/MATLAB/R2020b" or "/usr/local/Matlab/2020b" on Linux) and run CMake again.
-
 **Python launcher**
 
 Set Python_WORKING_DIRECTORY to a valid directory, it will be added to the 
 Python path.
 
-**Matlab launcher**
 
-Set Matlab_WORKING_DIRECTORY to a valid directory, it will be added to 
-the Matlab path.
 
 **Documentation build issues**
 
 Note that the several Python packages are required to run the "documentation_create_latex.bat" script
 on Windows systems.  Please ensure that the "sphinx" and "sphinx_rtd_style" packages are installed in your
 Python distribution.
-
-**PDFLATEX not found** 
-
-When using Miktex, if the PDFLATEX package is not automatically found, the path to pdflatex.exe can be specified to CMake with the MIKTEX_BINARY_PATH variable (available under Advanced options).
 
 Compiling Gpufit on Windows
 ---------------------------
@@ -268,21 +243,6 @@ To install the Python package
    cd pyGpufit/dist
    pip install pyGpufit-X.Y.Z-py2.py3-none-any.whl
    
-To run the Matlab package you need to tell Matlab to use a newer version of the C++ standard library
-
-.. code-block:: bash
-
-   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
-   matlab
-   
-Then in Matlab add the matlab output directory to the path and execute some examples.
-
-.. code-block:: bash
-
-   addpath('XX/Gpufit-build/matlab');
-   cd('XX/Gpufit/Gpufit/matlab/examples');
-   gauss2d();
-
 MacOS
 -----
 

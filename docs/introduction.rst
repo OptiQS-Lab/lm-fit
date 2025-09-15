@@ -48,8 +48,8 @@ The documentation includes:
 - A detailed description of the C interface
 - A description of the built-in model functions
 - A description of the built-in goodness-of-fit estimator functions
-- A detailed description of the external bindings to Matlab and Python
-- Usage examples for C, Matlab, and Python
+- A detailed description of the external bindings to Python
+- Usage examples for C and Python
 - Instructions for adding custom model functions or custom estimator functions
 
 The current version of the Gpufit library is |GF_version| 
