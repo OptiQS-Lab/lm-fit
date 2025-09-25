@@ -137,12 +137,24 @@ endif()
 add_subdirectory( Cpufit )
 
 # Gpufit
-
-add_subdirectory( Gpufit )
-
-# Examples using Gpufit and Cpufit
-
-add_subdirectory( examples/c++/gpu_vs_cpu_profiling )
+find_package(CUDA 6.5)
+if(CUDA_FOUND)
+  add_subdirectory( Gpufit )
+  # Examples using Gpufit and Cpufit
+  add_subdirectory( examples/c++/gpu_vs_cpu_profiling )
+  if( PYTHONINTERP_FOUND )
+  set( Python_WORKING_DIRECTORY "${home}" CACHE PATH "Python working directory" )
+  if( Python_WORKING_DIRECTORY )
+    add_custom_target( RUN_PYTHON )
+    set_property( TARGET RUN_PYTHON PROPERTY FOLDER CMakePredefinedTargets )
+    add_dependencies( RUN_PYTHON Gpufit )
+    add_python_launcher( RUN_PYTHON
+      "${CMAKE_SOURCE_DIR}/Gpufit/python"
+      "${Python_WORKING_DIRECTORY}"
+    )
+  endif()
+endif()
+endif()
 
 # Launcher
 #
@@ -176,13 +188,6 @@ endif()
 if( PYTHONINTERP_FOUND )
   set( Python_WORKING_DIRECTORY "${home}" CACHE PATH "Python working directory" )
   if( Python_WORKING_DIRECTORY )
-    add_custom_target( RUN_PYTHON )
-    set_property( TARGET RUN_PYTHON PROPERTY FOLDER CMakePredefinedTargets )
-    add_dependencies( RUN_PYTHON Gpufit )
-    add_python_launcher( RUN_PYTHON
-      "${CMAKE_SOURCE_DIR}/Gpufit/python"
-      "${Python_WORKING_DIRECTORY}"
-    )
 	add_custom_target( RUN_PYTHON_CPUFIT )
     set_property( TARGET RUN_PYTHON_CPUFIT PROPERTY FOLDER CMakePredefinedTargets )
     add_dependencies( RUN_PYTHON_CPUFIT Cpufit )
