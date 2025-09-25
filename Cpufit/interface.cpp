@@ -124,7 +124,7 @@ void FitInterface::set_number_of_parameters(ModelID const model_id)
         n_parameters_ = 7;
         break;
     default:
-        throw std::runtime_error("unknown model ID");
+        throw std::runtime_error("unknown model ID in interface.cpp");
     }
 }
 

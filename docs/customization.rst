@@ -27,7 +27,9 @@ of model parameters and dimensions must be specified as well.
 
 Detailed step by step instructions for adding a model function are given below.
 
-1. Define an additional model ID in file `<Gpufit/constants.h>`_. To use wih Cpufit also add the model ID in `<Cpufit/interface.cpp>`_. When using the language bindings, the model ID must also be added 
+1. Define an additional model ID in file `<Gpufit/constants.h>`_. To use wih Cpufit also add the model ID in `<Cpufit/interface.cpp>`_, define a calc_values and calc_derivatives functions in `<Cpufit/lm_fit.h>`_ and implement them in `<Cpufit/lm_fit_cpp.cpp>`_. 
+2. 
+3.  When using the language bindings, the model ID must also be added 
 
 - for Python 
     - in `<Gpufit/python/gpufit.py>`_ for pygpufit

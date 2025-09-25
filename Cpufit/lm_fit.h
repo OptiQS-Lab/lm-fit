@@ -96,6 +96,9 @@ private:
 
     void calc_values_linear1d(std::vector<REAL>& line);
     void calc_derivatives_linear1d(std::vector<REAL> & derivatives);
+    
+    void calc_values_sine(std::vector<REAL>& line);
+    void calc_derivatives_sine(std::vector<REAL> & derivatives);
 
     void calc_values_fletcher_powell_helix(std::vector<REAL>& values);
     void calc_derivatives_fletcher_powell_helix(std::vector<REAL> & derivatives);

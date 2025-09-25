@@ -328,6 +328,37 @@ void LMFitCPP::calc_derivatives_linear1d(
     }
 }
 
+void LMFitCPP::calc_derivatives_sine(
+    std::vector<REAL> & derivatives)
+{
+    REAL * user_info_float = (REAL*)user_info_;
+    REAL x = 0.;
+
+    for (std::size_t point_index = 0; point_index < info_.n_points_; point_index++)
+    {
+        if (!user_info_float)
+        {
+            x = REAL(point_index);
+        }
+        else if (info_.user_info_size_ / sizeof(REAL) == info_.n_points_)
+        {
+            x = user_info_float[point_index];
+        }
+        else if (info_.user_info_size_ / sizeof(REAL) > info_.n_points_)
+        {
+            std::size_t const fit_begin = fit_index_ * info_.n_points_;
+            x = user_info_float[fit_begin + point_index];
+        }
+        // parameters
+        REAL const * p = parameters_;
+        // partial derivatives
+        derivatives[0 * info_.n_points_ + point_index] = sin(p[1] * x + p[2]) + p[3];
+        derivatives[1 * info_.n_points_ + point_index] = p[0] * cos(p[1] * x + p[2]) * x;
+        derivatives[2 * info_.n_points_ + point_index] = p[0] * cos(p[1] * x + p[2]);
+        derivatives[3 * info_.n_points_ + point_index] = 1;
+    }
+}
+
 void LMFitCPP::calc_derivatives_fletcher_powell_helix(
     std::vector<REAL> & derivatives)
 {
@@ -910,6 +941,32 @@ void LMFitCPP::calc_values_linear1d(std::vector<REAL>& line)
     }
 }
 
+void LMFitCPP::calc_values_sine(std::vector<REAL>& value)
+{
+    REAL * user_info_float = (REAL*)user_info_;
+    REAL x = 0.f;
+    for (std::size_t point_index = 0; point_index < info_.n_points_; point_index++)
+    {
+        if (!user_info_float)
+        {
+            x = REAL(point_index);
+        }
+        else if (info_.user_info_size_ / sizeof(REAL) == info_.n_points_)
+        {
+            x = user_info_float[point_index];
+        }
+        else if (info_.user_info_size_ / sizeof(REAL) > info_.n_points_)
+        {
+            std::size_t const fit_begin = fit_index_ * info_.n_points_;
+            x = user_info_float[fit_begin + point_index];
+        }
+        // parameters
+        REAL const * p = parameters_;
+        // value 
+        value[point_index] = p[0] * sin(p[1] * x + p[2]) + p[3];
+    }
+}
+
 void LMFitCPP::calc_values_fletcher_powell_helix(std::vector<REAL>& values)
 {
     REAL const * p = parameters_;
@@ -1239,65 +1296,63 @@ void LMFitCPP::calc_values_spline3d_multichannel(std::vector<REAL>& values)
 // depending on the model Id, calls functions to calculate model function values and derivatives
 void LMFitCPP::calc_curve_values(std::vector<REAL>& curve, std::vector<REAL>& derivatives)
 {           
-    if (info_.model_id_ == GAUSS_1D)
+    // Todo: move models to models/modelid.cpp like in gpufit
+    switch (info_.model_id_)
     {
+    case GAUSS_1D:
         calc_values_gauss1d(curve);
         calc_derivatives_gauss1d(derivatives);
-    }
-    else if (info_.model_id_ == GAUSS_2D)
-    {
+        break;
+    case GAUSS_2D:
         calc_values_gauss2d(curve);
         calc_derivatives_gauss2d(derivatives);
-    }
-    else if (info_.model_id_ == GAUSS_2D_ELLIPTIC)
-    {
+        break;
+    case GAUSS_2D_ELLIPTIC:
         calc_values_gauss2delliptic(curve);
         calc_derivatives_gauss2delliptic(derivatives);
-    }
-    else if (info_.model_id_ == GAUSS_2D_ROTATED)
-    {
+        break;
+    case GAUSS_2D_ROTATED:
         calc_values_gauss2drotated(curve);
         calc_derivatives_gauss2drotated(derivatives);
-    }
-    else if (info_.model_id_ == CAUCHY_2D_ELLIPTIC)
-    {
+        break;
+    case CAUCHY_2D_ELLIPTIC:
         calc_values_cauchy2delliptic(curve);
         calc_derivatives_cauchy2delliptic(derivatives);
-    }
-    else if (info_.model_id_ == LINEAR_1D)
-    {
+        break;
+    case LINEAR_1D:
         calc_values_linear1d(curve);
         calc_derivatives_linear1d(derivatives);
-    }
-    else if (info_.model_id_ == FLETCHER_POWELL_HELIX)
-    {
+        break;
+    case FLETCHER_POWELL_HELIX:
         calc_values_fletcher_powell_helix(curve);
         calc_derivatives_fletcher_powell_helix(derivatives);
-    }
-    else if (info_.model_id_ == BROWN_DENNIS)
-    {
+        break;
+    case BROWN_DENNIS:
         calc_values_brown_dennis(curve);
         calc_derivatives_brown_dennis(derivatives);
-    }
-    else if (info_.model_id_ == SPLINE_1D)
-    {
+        break;
+    case SPLINE_1D:
         calc_values_spline1d(curve);
         calc_derivatives_spline1d(derivatives);
-    }
-    else if (info_.model_id_ == SPLINE_2D)
-    {
+        break;
+    case SPLINE_2D:
         calc_values_spline2d(curve);
         calc_derivatives_spline2d(derivatives);
-    }
-    else if (info_.model_id_ == SPLINE_3D)
-    {
+        break;
+    case SPLINE_3D:
         calc_values_spline3d(curve);
         calc_derivatives_spline3d(derivatives);
-    }
-    else if (info_.model_id_ == SPLINE_3D_MULTICHANNEL)
-    {
+        break;
+    case SPLINE_3D_MULTICHANNEL:
         calc_values_spline3d_multichannel(curve);
         calc_derivatives_spline3d_multichannel(derivatives);
+        break;
+    case SINE:
+        calc_values_sine(curve);
+        calc_derivatives_sine(derivatives);
+        break;
+    default:
+        throw std::runtime_error("calulation method for model ID not implemented in lm_fit_cpp.cpp");
     }
 }
 
