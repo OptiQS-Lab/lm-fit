@@ -1,14 +1,14 @@
-# Levenberg Marquardt curve fitting in CUDA 
-# https://github.com/gpufit/Gpufit
+# Levenberg Marquardt curve fitting on CPU/CUDA 
+# https://github.com/OptiQS-Lab/lm-fit
 # see also CMake configuration in /docs/installation.rst
 
 # CMake
  
-cmake_minimum_required( VERSION 3.11 )
+cmake_minimum_required( VERSION 3.22.1 )
 set_property( GLOBAL PROPERTY USE_FOLDERS ON )
 
 if( NOT PROJECT_NAME )
-  project( Gpufit VERSION 1.2.0 )
+  project( lm-fit VERSION 0.0.1 )  # TODO: Use git tag versioning
   include( CTest )
 endif()
 
@@ -86,74 +86,21 @@ else()
   message( WARNING "Boost NOT found - skipping tests! (set BOOST_ROOT manually)" )
 endif()
 
-# Python
+# CPU
 
-find_package( PythonInterp )
-if( PYTHONINTERP_FOUND )
-  function( add_python_launcher target )
-    set( paths "${CMAKE_BINARY_DIR}/$(Configuration)" ${ARGN} )
-    list( GET paths -1 working_directory )
-    string( REPLACE ";" "')\nsys.path.append('" paths "${paths}" )
-    set( arguments "-i -c \"import sys\nsys.path.append('${paths}')\"" )
-    add_launcher( ${target} "${PYTHON_EXECUTABLE}" "${arguments}" "${working_directory}" )
-  endfunction()
-endif()
+add_subdirectory( lm-fit/cpu )
 
-# Cpufit
+# CUDA
 
-add_subdirectory( Cpufit )
+add_subdirectory( lm-fit/cuda )
 
-# Gpufit
+# # Examples using CPU or CUDA
 
-add_subdirectory( Gpufit )
+add_subdirectory( examples/c++/ )
 
-# Examples using Gpufit and Cpufit
+# # Tests
 
-add_subdirectory( examples/c++/gpu_vs_cpu_profiling )
+# if( BUILD_TESTING )
+#   add_subdirectory( tests )
+# endif()
 
-# Launcher
-#
-# Uses the following variables:
-#
-#   Python_WORKING_DIRECTORY (Default: user home directory)
-#   -- Working directory for Python applications using Gpufit.
-
-if( WIN32 )
-	file( TO_CMAKE_PATH "$ENV{HOMEPATH}" home )
-else()
-	file( TO_CMAKE_PATH "$ENV{HOME}" home )
-endif()
-
-
-if( PYTHONINTERP_FOUND )
-  set( Python_WORKING_DIRECTORY "${home}" CACHE PATH "Python working directory" )
-  if( Python_WORKING_DIRECTORY )
-    add_custom_target( RUN_PYTHON )
-    set_property( TARGET RUN_PYTHON PROPERTY FOLDER CMakePredefinedTargets )
-    add_dependencies( RUN_PYTHON Gpufit )
-    add_python_launcher( RUN_PYTHON
-      "${CMAKE_SOURCE_DIR}/Gpufit/python"
-      "${Python_WORKING_DIRECTORY}"
-    )
-	add_custom_target( RUN_PYTHON_CPUFIT )
-    set_property( TARGET RUN_PYTHON_CPUFIT PROPERTY FOLDER CMakePredefinedTargets )
-    add_dependencies( RUN_PYTHON_CPUFIT Cpufit )
-    add_python_launcher( RUN_PYTHON_CPUFIT
-      "${CMAKE_SOURCE_DIR}/Cpufit/python"
-      "${Python_WORKING_DIRECTORY}"
-    )
-  endif()
-endif()
-
-# Tests
-
-if( BUILD_TESTING )
-  add_subdirectory( tests )
-endif()
-
-# Package
-
-#set( CPACK_PACKAGE_VERSION ${PROJECT_VERSION} )
-#set( CPACK_GENERATOR ZIP )
-
-#include( CPack )

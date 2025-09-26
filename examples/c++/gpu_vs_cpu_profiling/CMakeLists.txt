@@ -19,6 +19,8 @@ function( add_example modules name )
 #  install( TARGETS ${target} RUNTIME DESTINATION bin )
 endfunction()
 
+add_subdirectory( gpu_vs_cpu_profiling )
+
 add_example( "Cpufit;Gpufit" Gpufit_Cpufit_Performance_Comparison )
 
 add_example( "Cpufit;Gpufit" Gpufit_Cpufit_Nvidia_Profiler_Test )

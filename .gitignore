@@ -5,3 +5,6 @@ __pycache__
 # build folders
 **/build/*
 
+# Blobs
+*.dll
+*.so

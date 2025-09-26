@@ -1,4 +1,4 @@
-#include "../../Gpufit/gpufit.h"
+#include "../../lm-fit/cuda/gpufit.h"
 
 #include <vector>
 #include <random>

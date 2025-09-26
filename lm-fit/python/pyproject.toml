@@ -1,0 +1,64 @@
+# Project metadata and build configuration
+# Project metadata and build configuration
+[project]
+name = "lm-fit"
+keywords = ["science", "levenberg-marquardt ", "curve-fitting", "data-analysis"]
+dynamic = ["version"]
+authors = [
+  { name="Nikolas Longen", email="nikolas.longen@kip.uni-heidelberg.de" },
+]
+description = "Python bindings for Levenberg Marquardt curve fitting (lm-fit) on cpu (c++) and gpu (cuda)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "AGPL-3.0-or-later"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "numpy",
+]
+
+[project.urls]
+"Homepage" =  "https://www.kip.uni-heidelberg.de/optiqs?lang=en"
+"Repository" = "https://github.com/OptiQS-Lab/lm-fit/"
+"Bug Tracker" = "https://github.com/OptiQS-Lab/lm-fit/issues"
+"Documentation" = "https://optiqs-lab.github.io/lm-fit/"
+
+#  https://hatch.pypa.io/1.13/why/ 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Add library files to module
+[tool.hatch.build]
+include = [
+  "lm_fit/**/*",
+  "lm_fit/libs/*.so",
+  "lm_fit/libs/*.dll"
+]
+# Exclude files used for testing
+exclude = [
+  "**pycache**",
+  "*test*",
+]
+
+
+[tool.hatch.version]
+path = "lm_fit/__about__.py"
+
+
+# Set default environment
+[tool.hatch.envs.default]
+dependencies = [
+  "build", 
+  "wheel"
+]
+
+[tool.hatch.build.targets.wheel]
+pure-python = false
+artifacts = [
+  "lm_fit/libs/*.so",
+  "lm_fit/libs/*.dll"
+  # "!/foo/*.so",
+]

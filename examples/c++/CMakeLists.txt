@@ -4,7 +4,7 @@ function( add_example module name )
 	target_link_libraries( ${name} ${module} )
 	set_property( TARGET ${name}
 		PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}" )
-	set_property( TARGET ${name} PROPERTY FOLDER GpufitExamples )
+	set_property( TARGET ${name} PROPERTY FOLDER lm-fit_Examples )
 endfunction()
 
 function( add_cuda_example module name )
@@ -12,7 +12,7 @@ function( add_cuda_example module name )
 	target_link_libraries( ${name} ${module} )
 	set_property( TARGET ${name}
 		PROPERTY RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}" )
-	set_property( TARGET ${name} PROPERTY FOLDER GpufitExamples )
+	set_property( TARGET ${name} PROPERTY FOLDER lm-fit_Examples )
 endfunction()
 
 # Examples

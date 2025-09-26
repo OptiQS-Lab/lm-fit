@@ -3,8 +3,8 @@
  * running time information on the different CUDA kernels.
  */
 
-#include "Cpufit/cpufit.h"
-#include "Gpufit/gpufit.h"
+#include "../../../lm-fit/cpu/cpufit.h"
+#include "../../../lm-fit/cuda/gpufit.h"
 #include "tests/utils.h"
 
 #include <stdexcept>

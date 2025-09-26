@@ -112,17 +112,20 @@ jobs:
         if: runner.os == 'Linux'
         working-directory: ${{ env.build_dir }}
         run: make
-
+# TODO Select files for Release
       - name: Upload Artifacts (Windows)
         uses: actions/upload-artifact@v4
         if: runner.os == 'Windows'
         with:
           name: ${{ matrix.os }}-x64-cuda-${{ matrix.cuda }}
-          path: build/Release/**/*
+          path: build/Release/**/*  # only dll and exe
 
       - name: Upload Artifacts (Linux)
         uses: actions/upload-artifact@v4
         if: runner.os == 'Linux'
         with:
           name: ${{ matrix.os }}-x64-cuda-${{ matrix.cuda }}
-          path: build/**/*
+          path: build/**/* #  only .so and compiled programms
+
+# TODO: Create runnter to build python package with linux and windows libs, wait for both to finish
+# https://stackoverflow.com/questions/57498605/github-actions-share-workspace-artifacts-between-jobs
