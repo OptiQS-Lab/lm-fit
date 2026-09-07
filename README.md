@@ -15,7 +15,9 @@ aimed to repackage the project into modules supporting different hardware archit
 
 ## TODO:
 
-- [ ] Make code compile and work properly (use sphinx and github pages?)
+- [x] Make code compile (code compiles but tests do not run)
+- [ ] Test and compare results with Gpufit
+- [ ] Setup docs (sphinx and github pages?)
 - [ ] Instructions on building (see https://github.com/gpufit/Gpufit/issues/138)
 - [ ] Add cupy support? (see https://github.com/gpufit/Gpufit/pull/132)
 - [ ] AMD/ROCm support (see https://github.com/gpufit/Gpufit/pull/149)
