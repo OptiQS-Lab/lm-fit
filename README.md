@@ -11,6 +11,19 @@ Levenberg Marquardt curve fitting (lm-fit) in
 
 forked from [github.com/gpufit/Gpufit](https://github.com/gpufit/Gpufit) described in [Sci Rep 7, 15722 (2017)](https://www.nature.com/articles/s41598-017-15313-9).
 
+aimed to repackage the project into modules supporting different hardware architectures:
+
+## TODO:
+
+- [ ] Make code compile and work properly (use sphinx and github pages?)
+- [ ] Instructions on building (see https://github.com/gpufit/Gpufit/issues/138)
+- [ ] Add cupy support? (see https://github.com/gpufit/Gpufit/pull/132)
+- [ ] AMD/ROCm support (see https://github.com/gpufit/Gpufit/pull/149)
+- [ ] CI / Package with Github Actions and Publish on PyPi (see https://github.com/gpufit/Gpufit/pull/116 and https://github.com/gpufit/Gpufit/issues/113)
+- [ ] Intel/OpenVINO support
+- [ ] Support CPU/APU internal GPU-cores?
+- [ ] ARM?
+
 ## Binary distribution
 
 The latest Gpufit binary release, supporting Windows 32-bit and 64-bit machines, can be found on the [release page](https://github.com/gpufit/Gpufit/releases).
@@ -21,6 +34,8 @@ Documentation for the lm-fit library is build autmatically using GitHub Pages <h
 ## Building Gpufit from source code
 
 Instructions for building Gpufit are found in the documentation: [Building from source code](https://github.com/gpufit/Gpufit/blob/master/docs/installation.rst).
+Also check out https://github.com/gpufit/Gpufit/issues/138
+
 
 ## Using the Gpufit binary distribution
 
